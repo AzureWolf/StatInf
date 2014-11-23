@@ -1,13 +1,38 @@
-```{r}
+---
+output: html_document
+---
+```{r echo = TRUE}
 set.seed(1)
 
 mns = NULL
 for (i in 1 : 1000) mns = c(mns, rexp(40,0.2))
+```
+
+### 1. Show where the distribution is centered at and compare it to the theoretical center of the distribution.
+```{r echo = TRUE}
 hist(mns)
 
 print(mean(mns))
-print(sd(mns)^2)
-
 print(1/0.2)
+```
+The distribution is centered at `r mean(mns)`.
+The theoretical distribution is `r (1/0.2)`.
+
+### 2. Show how variable it is and compare it to the theoretical variance of the distribution.
+
+```{r echo = TRUE}
+print(sd(mns)^2)
 print((1/0.2)^2)
 ```
+
+The distribution variance is `r sd(mns)^2`.
+The theoretical variance is `r (1/0.2)^2`.
+
+### 3. Show that the distribution is approximately normal.
+
+```{r echo = TRUE}
+qqnorm(mns^0.2);
+qqline(mns^0.2, col = 5)
+```
+
+We are able to plot the data on a Normal Q-Q plot.

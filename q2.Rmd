@@ -1,3 +1,4 @@
+### 1. Load the ToothGrowth data and perform some basic exploratory data analyses
 ```{r}
 library(datasets)
 library(lattice)
@@ -6,10 +7,19 @@ xyplot(len ~ dose, ToothGrowth, groups = supp, auto.key = list(columns = 1))
 xyplot(len ~ dose | supp, ToothGrowth)
 ```
 
+### 2. Provide a basic summary of the data.
+
 The data represents the tooth growth given a specific supplement and a respective dosage.
 
+### 3. Use confidence intervals and/or hypothesis tests to compare tooth growth by supp and dose. (via techniques from class)
+
+We could take the time to answer the question about whether or not each supplement has an effect, but we can kill two birds with one stone.
+
 In order to figure out if the supplements are effective, we will test the hypothesis that one supplement is no better than the other supplement.
-If it seems like the data we got is unlikely if there is no difference in effect, we should get, at the very least, a zero within our confidence interval.
+This way, we will answer two questions at once:
+
+1. If it seems like the data we got is likely if there is no **difference** in effect, we should get, at the very least, a zero within our confidence interval.
+2. On the other hand, if one supplement is better than the other, we will have also demonstrated that at least one of the supplements has an effect.
 
 ```{r}
 supp1 <- ToothGrowth$len[1:30]
@@ -18,9 +28,12 @@ difference <- supp2 - supp1
 mn <- mean(difference)
 
 s <- sd(difference)
-mn + c(-1, 1) * qt(0.975, 29) * s/(30)
-print(mn)
+range <- mn + c(-1, 1) * qt(0.975, 29) * s/(30)
+print(range); print(mn)
 ```
 
-The above means that we can be 95% confident that the average difference is between these values.
-In addition, the 95% confidence interval does not overlap with 0, indicating there is a difference in the efficacy in the supplements.
+### 4. State your conclusions and the assumptions needed for your conclusions.
+
+The above means that we can be 95% confident that the average difference is between `r range`.
+Our sample average difference is `r mn`.
+In addition, the 95% confidence interval does not overlap with 0, indicating a very strong likelihood that there is difference in the efficacy in the supplements.
