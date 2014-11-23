@@ -1,0 +1,13 @@
+```{r}
+set.seed(1)
+
+mns = NULL
+for (i in 1 : 1000) mns = c(mns, rexp(40,0.2))
+hist(mns)
+
+print(mean(mns))
+print(sd(mns)^2)
+
+print(1/0.2)
+print((1/0.2)^2)
+```

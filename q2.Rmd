@@ -1,0 +1,26 @@
+```{r}
+library(datasets)
+library(lattice)
+
+xyplot(len ~ dose, ToothGrowth, groups = supp, auto.key = list(columns = 1))
+xyplot(len ~ dose | supp, ToothGrowth)
+```
+
+The data represents the tooth growth given a specific supplement and a respective dosage.
+
+In order to figure out if the supplements are effective, we will test the hypothesis that one supplement is no better than the other supplement.
+If it seems like the data we got is unlikely if there is no difference in effect, we should get, at the very least, a zero within our confidence interval.
+
+```{r}
+supp1 <- ToothGrowth$len[1:30]
+supp2 <- ToothGrowth$len[31:60]
+difference <- supp2 - supp1
+mn <- mean(difference)
+
+s <- sd(difference)
+mn + c(-1, 1) * qt(0.975, 29) * s/(30)
+print(mn)
+```
+
+The above means that we can be 95% confident that the average difference is between these values.
+In addition, the 95% confidence interval does not overlap with 0, indicating there is a difference in the efficacy in the supplements.
